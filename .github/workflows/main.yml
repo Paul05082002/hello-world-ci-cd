@@ -1,0 +1,30 @@
+name: Python application CI/CD
+
+# Trigger the workflow on push to the main branch
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+# The jobs section defines the steps to run in the workflow
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    # Define the steps to run in this job
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with: 
+          python-version: 3.8
+      - name: Installe dependences
+        run: 
+          python -m pip install --upgrade pip
+          pip install unittest
+      - name: Test with unittest
+        run:
+          python -m unittest discover -v
